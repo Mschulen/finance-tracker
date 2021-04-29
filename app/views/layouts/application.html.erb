@@ -7,16 +7,32 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "custom" %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 
 <body>
-<%= render 'layouts/nav' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render 'layouts/nav' %>
 
-    <%= yield %>
+    <% if !user_signed_in? %>
+        <%= render 'layouts/flash' %>
+
+        <div class="card mx-auto rounded-0 mt-5" id="login-card" style="width: 30%;">
+            <div class="card-body">                
+                <%= yield %>
+            </div>
+        </div>
+
+    <% else %>
+        <%= render 'layouts/flash' %>
+
+        <div class="mx-auto" style="width: 80%;">            
+            <%= yield %>
+        </div>
+
+    <% end %>
 </body>
 
 </html>
