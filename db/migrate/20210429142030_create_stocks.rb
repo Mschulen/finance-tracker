@@ -4,6 +4,7 @@ class CreateStocks < ActiveRecord::Migration[6.1]
       t.string :ticker
       t.string :name
       t.decimal :last_price
+      t.string :logo
 
       t.timestamps
     end

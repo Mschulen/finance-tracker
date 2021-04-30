@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_142030) do
     t.string "ticker"
     t.string "name"
     t.decimal "last_price"
+    t.string "logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
