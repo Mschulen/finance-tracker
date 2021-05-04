@@ -1,0 +1,12 @@
+<%= render 'layouts/flash' %>
+
+<% if @stock_display %>
+<div class="card text-dark rounded-0 alert alert-dismissable fade show" style="width: 18rem;">
+  <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="card-body">
+    <h5 class="card-title"><%= @stock_display.name %></h5>
+    <p class="card-text"><strong>Most recent price: </strong><%= @stock_display.last_price %></p>
+    <a href="#" class="btn bg-purple text-white">Show</a>
+  </div>
+</div>
+<% end %>
