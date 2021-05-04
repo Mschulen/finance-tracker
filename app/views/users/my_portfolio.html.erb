@@ -1,17 +1,17 @@
-<div class="row inline d-inline">
-  <div class="text-white">
+<div class="row">
+  <div class="text-white colt-5">
     <div class="mb-3">
       <h2>Search stocks</h2>
     </div>
 
     <div class="mt-2">
-      <p>Hi <%= current_user.email %>, this is your portfolio page </p>
+      <p>Hi <%= current_user.first_name %>, this is your portfolio page. </p>
     </div>
 
     <%= form_tag search_stock_path, remote: true, method: :get do %>
     <div class="form-group row">
       <div class="col-sm-4 no-padding-right">
-        <%= text_field_tag :stock, params[:stock], placeholder: "Stocc ticker", autofocus: true, class: "form-control form-control-md rounded-0" %>
+        <%= text_field_tag :stock, params[:stock], placeholder: "--> Enter Stock ticker <--", autofocus: true, class: "form-control form-control-md rounded-0" %>
       </div>
       <div class="col-sm-3 no-padding-left">
         <%= button_tag type: :submit, class: "btn bg-purple text-white rounded-0" do %>
@@ -27,5 +27,36 @@
       </div>
     </div>
   </div>
+
+  <div class="col-5">
+    <%= image_tag "portfolio.png", id: "home-image", class: "d-inline" %>
+  </div>
 </div>
-<%= image_tag "portfolio.png", id: "home-image", class: "d-inline" %>
+
+<% if !@tracked_stocks.empty? %>
+<div class="row col-9">
+  <table class="table text-white">
+    <thead>
+      <tr>
+        <th scope="col">Ticker</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tracked_stocks.each do |stock| %>
+      <tr>
+        <th scope="row"><%= stock.ticker %></th>
+        <td><%= stock.name %></td>
+        <td><%= stock.last_price %></td>
+        <td>
+          <%= link_to 'Unfollow', user_stock_path(stock), method: :delete, class: "btn bg-purple text-white rounded-0", data: { confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
+<% end %>

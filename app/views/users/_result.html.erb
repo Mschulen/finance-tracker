@@ -1,12 +1,26 @@
-<%= render 'layouts/flash' %>
-
 <% if @stock_display %>
 <div class="card text-dark rounded-0 alert alert-dismissable fade show" style="width: 18rem;">
   <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
   <div class="card-body">
     <h5 class="card-title"><%= @stock_display.name %></h5>
     <p class="card-text"><strong>Most recent price: </strong><%= @stock_display.last_price %></p>
-    <a href="#" class="btn bg-purple text-white">Show</a>
+
+    <% if current_user.can_track_stock?(@stock_display.ticker) %>
+    <%= link_to 'Add to portfolio', user_stocks_path(user: current_user, ticker: @stock_display.ticker), class: "btn bg-purple rounded-0 text-white", method: :post %>
+    <% else %>
+    <span class="badge bg-primary">
+      You are already tracking
+      <% if !current_user.under_stock_limit? %>
+      10 socks
+      <% end %>
+      <% if current_user.stock_already_tracked?(@stock_display.ticker) %>
+      this sock
+      <% end %>
+    </span>
+    <% end %>
+
+
+
   </div>
 </div>
 <% end %>
