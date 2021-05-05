@@ -6,8 +6,15 @@
         <div class="card-body">
           <h5 class="card-title"><%= "#{friend.first_name} #{friend.last_name}" %></h5>
           <div class="">
-            <%= link_to 'View profile', '#', class: "btn btn-sm bg-purple" %>
-            <%= link_to 'Follow', '#', class: "btn btn-sm bg-purple" %>
+
+            <%= link_to 'View profile', '#', class: "btn btn-sm bg-purple text-white" %>
+
+            <% if !current_user.friends_with?(friend.id) %>
+            <%= link_to 'Follow', friends_path(friend: friend), method: :create, class: "btn btn-sm bg-purple text-white" %>
+            <% else %>
+            <%= link_to 'Unfollow', friend_path(id: friend.id), method: :delete, class: "btn btn-sm bg-purple text-white", data: {confirm: "Are you sure?"} %>
+            <% end %>
+
           </div>
         </div>
       </div>

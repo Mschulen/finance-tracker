@@ -25,4 +25,21 @@ class FriendsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    friend = current_user.friendships.where(friend_id: params[:id]).first
+    friend.destroy
+    flash[:notice]="Unfollowed successfully."
+  end
+
+  def create
+    friend = User.find(params[:friend])
+    current_user.friendships.build(friend_id: friend.id)
+    if current_user.save
+      flash[:notice] = "User followed."
+    else
+      flash[:alert] = "Something went wrong."
+    end
+    redirect_to my_friends_path
+  end
 end
