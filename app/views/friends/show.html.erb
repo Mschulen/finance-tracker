@@ -1,0 +1,38 @@
+<%= form_tag search_friend_path, remote: true, method: :get do %>
+    <div class="form-group row mb-4 d-flex justify-content-center">
+      <div class="no-padding-right col-sm-7">
+        <%= text_field_tag :friend, params[:friend], placeholder: "--> Enter user <--", autofocus: true, class: "form-control form-control-md rounded-0" %>
+      </div>
+      <div class="col-sm-3 no-padding-left">
+        <%= button_tag type: :submit, class: "btn bg-purple text-white rounded-0" do %>
+        Search
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<div id="results">
+  <%= render 'friends/result' %>
+</div>
+
+
+<% if current_user.friends.any? %>
+
+<h3 class="text-center text-white mb-4">Your friends:</h3>
+
+<div class = "container col-6">
+  <ul class="list-group rounded-0">
+    <% @friends.each do |friend| %>
+      <li class="list-group-item" id="friend-display"><%= "#{friend.first_name} #{friend.last_name}" %>
+      <div class = "d-flex justify-content-end">
+      <%= link_to 'Remove', '#', class: "btn btn-sm bg-purple text-white" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% else %>
+
+<h3>You got no friends :(</h3>
+
+<% end %>

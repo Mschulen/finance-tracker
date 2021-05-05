@@ -1,0 +1,16 @@
+<% if @friends_search %>
+  <div class="row">
+    <% @friends_search.each do |friend| %>
+      <div class="card text-dark rounded-0 alert alert-dismissable fade show col-sm-3 me-3">
+        <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="card-body">
+          <h5 class="card-title"><%= "#{friend.first_name} #{friend.last_name}" %></h5>
+          <div class="">
+            <%= link_to 'View profile', '#', class: "btn btn-sm bg-purple" %>
+            <%= link_to 'Follow', '#', class: "btn btn-sm bg-purple" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
